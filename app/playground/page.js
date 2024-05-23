@@ -3,6 +3,7 @@ import Input from "@/components/input";
 import Label from "@/components/label";
 import PageHeader from "@/components/page-header";
 import Select from "@/components/select";
+import Skeleton from "@/components/skeleton";
 import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Trend from "@/components/trend";
@@ -89,6 +90,24 @@ export default function Page() {
                     <div className="flex items-center">
                     <Input type="checkbox" id="terms"/>
                         <Label htmlFor="terms" className="ml-2">Accept Terms</Label>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 className="mb-4 text-lg font-mono">Loading Skeleton</h2>
+                <hr className="mb-4 border-gray-200 dark:border-gray-800" />
+                <div className="space-y-8">
+                    <div className="flex space-x-4">
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </div>
+
+                    <div className="space-y-4">
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
                     </div>
                 </div>
             </div>
