@@ -1,18 +1,18 @@
 import { Suspense } from "react";
-import TransactionList from "./components/transaction-list";
-import Skeleton from "@/components/skeleton";
 import TransactionListFallback from "./components/transaction-list-fallback";
 import Trend from "./components/trend";
 import TrendFallback from "./components/trend-fallback";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
-import { createClient } from "@/lib/supabase/server";
 import { ErrorBoundary } from "react-error-boundary";
 import { types } from "@/lib/consts";
 import Range from "./components/range";
+import TransactionListWrapper from "./components/transaction-list-wrapper";
 
-export default async function Page() {
+export default async function Page({ searchParams }) {
+
+    const range = searchParams?.range ?? 'last30days'
 
     return (
         <>
@@ -36,14 +36,14 @@ export default async function Page() {
                     return (
                         <ErrorBoundary key={type} fallback={<div>Cannot fetch {type} trend data</div>}>
                             <Suspense fallback={<TrendFallback />}>
-                                <Trend type={type}/>
+                                <Trend type={type} range={range}/>
                             </Suspense>
                         </ErrorBoundary>
                     )
                 })}
             </section>
             <Suspense fallback={<TransactionListFallback />}>
-                <TransactionList />
+                <TransactionListWrapper range={range}/>
             </Suspense>
         </>
     )

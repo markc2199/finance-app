@@ -33,8 +33,6 @@ export default function TransactionForm() {
       const type = watch("type")
 
       const onSubmit = async (data) => {
-        console.log(data)
-        return
         setSaving(true)
         setLastError()
         try {
