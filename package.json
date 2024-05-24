@@ -11,17 +11,22 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
+    "@supabase/ssr": "^0.3.0",
+    "@supabase/supabase-js": "^2.43.4",
     "json-server": "^0.17.4",
     "lucide-react": "^0.378.0",
     "next": "14.2.3",
     "react": "^18",
     "react-cookie": "^7.1.4",
     "react-dom": "^18",
+    "react-error-boundary": "^4.0.13",
     "react-hook-form": "^7.51.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@tailwindcss/forms": "^0.5.7",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
