@@ -10,7 +10,7 @@ const initialState = {
 }
 
 export default function LoginForm() {
-    const [state, formAction] = useFormState(login, initialState )
+    const [state, formAction] = useFormState(login, initialState)
 
     return (
         <form className="space-y-2" action={formAction}>
