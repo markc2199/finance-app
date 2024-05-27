@@ -10,10 +10,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { transactionSchema } from "@/lib/validation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createTransaction } from "@/lib/actions";
+import { createTransaction, updateTransaction } from "@/lib/actions";
 import FormError from "@/components/form-error";
 
-export default function TransactionForm() {
+export default function TransactionForm({initialData}) {
 
     const {
         register,
@@ -23,7 +23,10 @@ export default function TransactionForm() {
         formState: { errors },
       } = useForm({
         mode: "onTouched",
-        resolver: zodResolver(transactionSchema)
+        resolver: zodResolver(transactionSchema),
+        defaultValues: initialData ?? {
+            created_at: new Date().toISOString().split('T')[0]
+        }
       })
 
       const router = useRouter()
@@ -31,12 +34,22 @@ export default function TransactionForm() {
       const [isSaving, setSaving] = useState(false)
       const [lastError, setLastError] = useState()
       const type = watch("type")
+      const editing = Boolean(initialData)
 
       const onSubmit = async (data) => {
         setSaving(true)
         setLastError()
         try {
-            await createTransaction(data)
+            if (editing) {
+                //Edit action
+                await updateTransaction(
+                    initialData.id,
+                    data
+                )
+            } else {
+                await createTransaction(data)
+            }
+            
             router.push('/dashboard')
         } catch (error) {
             setLastError(error)
@@ -77,7 +90,7 @@ export default function TransactionForm() {
 
                 <div>
                     <Label className="mb-1">Date</Label>
-                    <Input {...register("created_at")}/>
+                    <Input {...register("created_at")} disabled={editing}/>
                     <FormError error={errors.created_at}/>
                 </div>
 
